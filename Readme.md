@@ -1,6 +1,108 @@
+************** Higher Order Functions ***************
+A function that takes another function as an argument or returns a function from it is known as higher order functions
+# push() : The push() method adds new items to the end of an array.
+# A function which is passed inside higher order function is a callback function.
+# This is possible only because these are first class function.
+
+********** example
+const radius = [3,5,7,9];
+
+const calculateArea = function(radius){
+    const output = [];
+    for (let i=0; i < radius.length; i++){
+        output.push( Math.PI * radius[i] * radius[i]);
+    }
+    return output;
+    
+}
+console.log(calculateArea(radius));
+
+const calculateCircumference = function(radius){
+    const output = [];
+    for (let i=0; i < radius.length; i++){
+        output.push(2 * Math.PI * radius[i] * radius[i]);
+    }
+    return output;
+    
+}
+console.log(calculateCircumference(radius));
+
+const calculateDiameter = function(radius){
+    const output = [];
+    for (let i=0; i < radius.length; i++){
+        output.push(2 * radius[i]);
+    }
+    return output;
+    
+}
+console.log(calculateDiameter(radius));
+
+# Now instead of writing repeatative functions, we can abstract the logics out for them
+# We will pass logic and radius both as argument
 
 
-// *********************************************** Learning React **********************************************************
+
+**************************** Map, filter(), reduce() *************************
+arr.these3(logic==functions)
+
+filter() = Filter() basically filters the array. It'll filter as per logic passed
+const arr = [1, 2, 3, 4, 5, 6, 7];
+
+function isOdd(x){
+    return x % 2;
+}
+
+function isEven(x){
+    return x % 2 === 0;
+}
+
+const output = arr.filter(isEven);
+console.log(output);
+
+
+
+
+Reduce() = Array.reduce() takes all the elements from the array and come out with a single value.
+//********* sum and max using reduce() ************
+const output1 = arr.reduce(function(acc, curr){
+    if(curr > acc){
+        acc = curr;
+    }
+    return acc;
+}, 0);
+
+
+
+const output2 = arr.reduce(function(acc, curr){
+    acc = acc + curr;
+    return acc;
+}, 0);
+
+console.log(output1, output2);
+# reduce() takes accumulator and current values = reduce(acc, curr);
+
+
+
+/********* map & filter for array objects
+const users = [
+    {firstName: "Shalu", lastName: "Shah", age: 26},
+    {firstName: "Xyz", lastName: "wer", age: 75},
+    {firstName: "abc", lastName: "def", age: 43},
+    {firstName: "pqr", lastName: "stu", age: 26},
+];
+
+// let fullName = users.map(x => x.firstName + " " + x.lastName);
+// console.log(fullName);
+
+
+let maxAge = users.filter(x => x.age < 30).map(x => x.firstName);
+console.log(maxAge);
+'
+
+
+
+
+// ****************************************************************** Learning React **********************************************************************************
 # Because we are dealing with browsers, we use ReactDOM
 
 # npm is standard repository for all the packages. It's a package manager, it manages packages
@@ -173,6 +275,8 @@ const styleCard = {
 <h1 style={{ backgroundColor: "red" }}>React Component</h1>
 
 style attribute will accept javascript object, and js object is being wrapped inside { } braces
+	* First bracket { } - there's a price of some javascript
+	* Second bracket {{ }} - there's javascript object
 
 
 
@@ -185,6 +289,44 @@ style attribute will accept javascript object, and js object is being wrapped in
 
 # console.log(props)
 	- props is an object
+
+
+# ********* Destructuring *********************
+	* React will wraping inside object and passing to that function
+	* Example
+	const RestaurantCards = ({name, location, rating, eta, price}) => {
+
+    // react is wraping all these inside props
+    // const restaurantCards = {name, location, rating, eta, price} = props; // and here we have
+    return (
+    return (
+        <div className="res-cards">
+            <div className="thumbnail">
+                <img src="https://b.zmtcdn.com/data/pictures/chains/6/18384116/3973d350a93af15c5d302627bf10b4ab.jpg?fit=around|960:500&crop=960:500;*,*" 
+                alt="restaurant cover"/>
+            </div>
+            <div className="details">
+                <h3 className="res-name">{name}</h3>
+                <div className="location">{location}</div>
+                <div className="flex">
+                    <div className="rating">{rating}</div>
+                    <div className="eta">{eta}</div>
+                    <div className="price">{price}</div>
+                </div>
+                <div className="discount">
+                    10% Off | Use code SPECIAL10
+                </div>
+            </div>
+        </div>
+    )
+}
+
+// Further destructuring
+	resData?.data //"?" - this is optional chaining
+
+//********* Optional Chaining *********
+	- accesses an object's property or calls a function
+
 
 # Any data passing through { } braces, it'll sanitise the data. It's cross site scripting. It helps to prevent the data from attacker.
 # Example
@@ -205,9 +347,49 @@ style attribute will accept javascript object, and js object is being wrapped in
 
 # The code readable, web app is faster because of JSX not react.
 
+
+// *********** Check from where the data is coming
+	* Go the the network tab
+	* Select Fetch/XHR
+	* Preview
+
+
+// (Interview Question) - Config Driven UI: All the UIs driven by config. 
+	* Controlling the UI (how the UI will look like) by using the data(config) - comes from backedn api
+	* Example:
+		- Swiggy can have carousel with different offers. So for different location it'll show different offers, and these are being controlled by api (config data)
+
+
+// API 
+	* Api that we will be using is a list of objects. Each object will denote to the restaurant
+
+	* const resObj = {
+		
+	} 
+	This we define for a single object.
+	Rendering: resObj.data.name
+
+	* If it's a array of object:
+		* const resObj = [{
+			
+		},
+		{ 
+		}]
+		This we define for array of objects.
+		Rendering: resObj[0].data.name 		// will be called through index
+
+
+// Array: to display array items separated with commas: {restData[0].data.cuisines.join(", ")}
+
+
+// Run the cards in loop, we will use map
+	* {restaurantList.map((restaurant) => (<RestaurantCards restData={restaurant}/> ))}
+	* Here we are looping restaurantList and for each restaurant, we are returning a piece of jsx
+
 // ******************* Extensions *****************
 1. Bracket pair colorizer:different color brackets 
 2. Eslint: an open source project that helps you find and fix problems with your JavaScript code
 3. Better Comments 
+4. JSON Viewer - Chrome extension
 
 
