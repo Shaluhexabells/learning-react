@@ -393,3 +393,32 @@ style attribute will accept javascript object, and js object is being wrapped in
 4. JSON Viewer - Chrome extension
 
 
+/*
+* Header
+    - Logo
+    - Navitems - along with cart
+* Body 
+    - Search
+    - Restaurant cards
+* Footer
+    - Links
+    - Address
+    - Copyright
+*
+*/ 
+
+
+
+<!-- ************** Hooks ************** -->
+State variables == super powerful
+
+* A normal js function, that comes with some superpowers.
+    - These are utility functions
+    - These all get imported when we install react in our project.
+    - Two important react hooks:
+            i) useState - used to generate superpowerful state variables in react
+            ii) useEffect
+    - We need to import useState as named import
+    - Whenever a state variables changes, react re-rendered the components
+
+
